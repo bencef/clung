@@ -19,9 +19,6 @@
                                      CXChildVisit_Continue
                                      CXChildVisit_Recurse)))
 
-;; Typedef for visitor procedures
-(define _CXCursorVisitor (_cprocedure '(_CXCursor _CXCursor _CXClientData) _CXChildVisitResult))
-
 ;; Various structs
 (define-cstruct _CXUnsavedFile ([Filename _string]
                                 [Contents _string]
@@ -30,6 +27,9 @@
 (define-cstruct _CXCursor ([kind _CXChildVisitResult]
                            [xdata _int]
                            [data (_cpointer 'void)])) ; TODO "void * data[3]" so i guess array 3 of void* ?
+
+;; Typedef for visitor procedures
+(define _CXCursorVisitor (_cprocedure (list _CXCursor _CXCursor _CXClientData) _CXChildVisitResult))
 
 ;; Functions from http://clang.llvm.org/doxygen/group__CINDEX.html
 (clang-define clang_createIndex
