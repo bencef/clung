@@ -9,4 +9,5 @@
 (let ([str-handle (clang_getTranslationUnitSpelling tu)])
   (begin
     (write (clang_getCString str-handle))
+    (newline)
     (clang_disposeString str-handle)))
