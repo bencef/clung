@@ -250,7 +250,7 @@
         (_int = (length argv))                          ; number of command line arguments
         ((_list i _string) = argv)                      ; command line arguments
         (_uint = (length open-files))                   ; number of unsaved files
-        ((_list i _CXUnsavedFile-pointer) = open-files) ; array of unsaved files
+        ((_list i _CXUnsavedFile) = open-files)         ; array of unsaved files
         -> _CXTranslationUnit))                         ; return
 
 ;; Functions from http://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html
@@ -263,7 +263,7 @@
 (clang-define clang_visitChildren
   (_fun _CXCursor    ; root node
     _CXCursorVisitor ; TODO !!!!! function pointers provided by us. oh boi
-    _CXClientData    ; passed to visitor function TODO clarify
+    (_or-null _CXClientData)    ; passed to visitor function TODO clarify
     -> _uint))       ; return TODO check this (enum CXChildVisitResult)
 
 (clang-define clang_getTranslationUnitSpelling (_fun _CXTranslationUnit -> _CXString))
