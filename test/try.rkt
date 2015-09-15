@@ -4,7 +4,7 @@
 
 (define idx (clang_createIndex 0 0))
 
-(define tu (clang_createTranslationUnitFromSourceFile idx "./tu.cpp" 0 #f 0 #f))
+(define tu (clang_createTranslationUnitFromSourceFile idx "./tu.cpp" '() '()))
 
 (let ([str-handle (clang_getTranslationUnitSpelling tu)])
   (begin

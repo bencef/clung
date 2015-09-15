@@ -244,13 +244,14 @@
 
 ;; Functions from http://clang.llvm.org/doxygen/group__CINDEX__TRANSLATION__UNIT.html
 (clang-define clang_createTranslationUnitFromSourceFile
-  (_fun _CXIndex                     ; mutual index for linking
-   _string                           ; file path
-   (arg_num : _int)                              ; number of command line arguments
-   (_or-null (_array _string arg_num))    ; command line arguments
-   _uint                             ; number of unsaved files
-   (_or-null _CXUnsavedFile-pointer) ; array of unsaved files
-   -> _CXTranslationUnit))           ; return
+  (_fun (idx path argv open-files) ::
+        (_CXIndex = idx)                                ; mutual index for linking
+        (_string = path)                                ; file path
+        (_int = (length argv))                          ; number of command line arguments
+        ((_list i _string) = argv)                      ; command line arguments
+        (_uint = (length open-files))                   ; number of unsaved files
+        ((_list i _CXUnsavedFile-pointer) = open-files) ; array of unsaved files
+        -> _CXTranslationUnit))                         ; return
 
 ;; Functions from http://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html
 (clang-define clang_getTranslationUnitCursor (_fun _CXTranslationUnit -> _CXCursor))
